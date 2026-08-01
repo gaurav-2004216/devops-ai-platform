@@ -55,7 +55,7 @@ stages {
 
                     sh '''
                     sonar-scanner \
-                    -Dsonar.projectKey=devops-ai-platform \
+                    -Dsonar.projectKey=DevSecOps \
                     -Dsonar.sources=. \
                     -Dsonar.host.url=$SONAR_HOST_URL \
                     -Dsonar.token=$SONAR_AUTH_TOKEN
