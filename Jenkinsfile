@@ -44,27 +44,26 @@ stages {
         }
     }
 
-    stage('SonarQube Scan') {
-        steps {
-            withCredentials([string(
-                credentialsId: 'sonarqube-token',
-                variable: 'SONAR_AUTH_TOKEN'
-            )]) {
+   stage('SonarQube Scan') {
+    steps {
 
-                withSonarQubeEnv('SonarQube') {
+        withCredentials([string(
+            credentialsId: 'sonarqube-token',
+            variable: 'SONAR_TOKEN'
+        )]) {
 
-                    sh '''
-                    sonar-scanner \
-                    -Dsonar.projectKey=DevSecOps \
-                    -Dsonar.sources=. \
-                    -Dsonar.host.url=$SONAR_HOST_URL \
-                    -Dsonar.token=$SONAR_AUTH_TOKEN
-                    '''
+            sh '''
+            echo "Running SonarQube Scan"
 
-                }
-            }
+            sonar-scanner \
+            -Dsonar.projectKey=DevSecOps \
+            -Dsonar.sources=. \
+            -Dsonar.host.url=http://localhost:9000 \
+            -Dsonar.login=$SONAR_TOKEN
+            '''
         }
     }
+}
 
     stage('Build Docker Image') {
         steps {
