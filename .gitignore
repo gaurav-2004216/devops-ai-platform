@@ -9,3 +9,9 @@ terraform.tfstate.backup
 .idea/
 *.log
 coverage/
+*.zip
+*.tar.gz
+__pycache__/
+.env
+uploads/
+app/uploads/
