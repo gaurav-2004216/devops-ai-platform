@@ -105,17 +105,18 @@ stages {
         }
     }
 
+
     stage('Deploy to Kubernetes') {
     steps {
         sh '''
         export KUBECONFIG=/var/lib/jenkins/.kube/config
 
+        kubectl apply -f app/backend/services/kubernetes.yml
+
         kubectl set image deployment/ai-devsecops-backend \
         backend=gaurav262004/ai-devsecops-backend:$IMAGE_TAG
 
-        kubectl apply -f app/backend/services/kubernetes.yml
-
-        kubectl get pods
+        kubectl rollout status deployment/ai-devsecops-backend
         '''
     }
 }
