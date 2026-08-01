@@ -106,12 +106,15 @@ stages {
     }
 
     stage('Deploy to Kubernetes') {
-        steps {
-            sh '''
-            kubectl apply -f kubernetes/
-            '''
-        }
+    steps {
+        sh '''
+        kubectl set image deployment/backend \
+        backend=gaurav262004/ai-devsecops-backend:$IMAGE_TAG
+
+        kubectl apply -f app/backend/services/kubernetes.yml
+        '''
     }
+}
 
     stage('Verify Deployment') {
         steps {
