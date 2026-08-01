@@ -1,0 +1,32 @@
+def generate_jenkins():
+
+    return """pipeline {
+
+    agent any
+
+    stages {
+
+        stage('Build') {
+
+            steps {
+
+                sh 'docker build -t app .'
+
+            }
+
+        }
+
+        stage('Deploy') {
+
+            steps {
+
+                echo 'Deploying...'
+
+            }
+
+        }
+
+    }
+
+}
+"""

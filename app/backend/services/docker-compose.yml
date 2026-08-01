@@ -1,0 +1,33 @@
+def generate_compose(language):
+
+    if language == "Python":
+
+        return """version: '3'
+
+services:
+
+  app:
+
+    build: .
+
+    ports:
+
+      - "5000:5000"
+"""
+
+    if language == "Node.js":
+
+        return """version: '3'
+
+services:
+
+  app:
+
+    build: .
+
+    ports:
+
+      - "3000:3000"
+"""
+
+    return ""
