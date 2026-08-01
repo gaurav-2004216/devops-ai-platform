@@ -1,7 +1,7 @@
 pipeline {
 agent any
 
-```
+
 environment {
     IMAGE_NAME = "gaurav262004/ai-devsecops-backend"
     IMAGE_TAG = "${BUILD_NUMBER}"
@@ -146,7 +146,7 @@ post {
     }
 
 }
-```
+
 
 }
 
