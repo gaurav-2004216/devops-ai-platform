@@ -2,14 +2,14 @@ apiVersion: v1
 kind: Service
 
 metadata:
-  name: ai-devsecops-backend-service
+  name: ai-devsecops-service
 
-  spec:
-    selector:
-      app: ai-devsecops-backend
+spec:
+  selector:
+    app: ai-devsecops-backend
 
-      ports:
-        -port: 80
-        targetPort: 5000
+  ports:
+    - port: 5000
+      targetPort: 5000
 
-        type: ClusterIP
+  type: ClusterIP

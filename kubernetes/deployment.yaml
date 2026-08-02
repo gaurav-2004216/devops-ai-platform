@@ -23,3 +23,6 @@ spec:
 
           ports:
             - containerPort: 5000
+          envFrom:
+            - secretRef:
+                name: postgres-secret
