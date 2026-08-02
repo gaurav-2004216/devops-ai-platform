@@ -4,21 +4,22 @@ kind: Deployment
 metadata:
   name: ai-devsecops-backend
 
-  spec:
-    replicas:2
+spec:
+  replicas: 2
     
   selector:
     matchLabels:
       app: ai-devsecops-backend
 
-      template:
-        metadata:
-          labels:
-            app: ai-devsecops-backend
+  template:
+    metadata:
+      labels:
+        app: ai-devsecops-backend
 
-            spec:
-              containers:
-                image: gaurav262004/ai-devsecops-backend:17
+    spec:
+      containers:
+        - name: ai-devsecops-backend
+          image: gaurav262004/ai-devsecops-backend:19
 
-                ports:
-                  -containerPort: 5000
+          ports:
+            - containerPort: 5000

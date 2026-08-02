@@ -77,8 +77,7 @@ def upload_file():
 
     else:
         # Analyze single file
-        else:
-    report = {
+        report = {
         "checks": ["Single file uploaded"],
         "recommendations": [],
         "score": 10,
