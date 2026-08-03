@@ -47,7 +47,7 @@ stages {
   stage('SonarQube Scan') {
     steps {
         withCredentials([
-            string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')
+            string(credentialsId: 'sonarqube-token', variable: 'SONAR_TOKEN')
         ]) {
             sh '''
             echo "Running SonarQube Scan"
