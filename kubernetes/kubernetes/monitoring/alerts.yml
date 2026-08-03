@@ -1,0 +1,42 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: devops-alert-rules
+  namespace: monitoring
+
+spec:
+  groups:
+  - name: devops-alerts
+
+    rules:
+
+    - alert: PodCrashLooping
+      expr: |
+        rate(kube_pod_container_status_restarts_total[5m]) > 0
+      for: 2m
+      labels:
+        severity: warning
+      annotations:
+        description: "Pod {{ $labels.pod }} is restarting"
+
+    - alert: NodeCPUHigh
+      expr: |
+        100 - (avg by(instance)
+        (rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 80
+      for: 5m
+      labels:
+        severity: warning
+      annotations:
+        description: "CPU usage above 80%"
+
+    - alert: NodeDiskPressure
+      expr: |
+        kube_node_status_condition{
+        condition="DiskPressure",
+        status="true"
+        }
+      for: 5m
+      labels:
+        severity: critical
+      annotations:
+        description: "Node disk pressure detected"
