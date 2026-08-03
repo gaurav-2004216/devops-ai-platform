@@ -44,14 +44,11 @@ stages {
         }
     }
 
-   stage('SonarQube Scan') {
+  stage('SonarQube Scan') {
     steps {
-
-        withCredentials([string(
-            credentialsId: 'sonarqube-token',
-            variable: 'SONAR_TOKEN'
-        )]) {
-
+        withCredentials([
+            string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')
+        ]) {
             sh '''
             echo "Running SonarQube Scan"
 
@@ -59,7 +56,7 @@ stages {
             -Dsonar.projectKey=DevSecOps \
             -Dsonar.sources=. \
             -Dsonar.host.url=http://localhost:9000 \
-            -Dsonar.login=$SONAR_TOKEN
+            -Dsonar.token=$SONAR_TOKEN
             '''
         }
     }
