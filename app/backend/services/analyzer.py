@@ -16,29 +16,26 @@ def find_directory(project_path, dirname):
 
 def analyze_project(project_path):
 
+    score = 0
+    language = "Unknown"
+
     report = {
+        "score": score,
+        "language": language,
 
-    "score": score,
+        "tools": {
+            "docker": True,
+            "docker_compose": True,
+            "terraform": False,
+            "kubernetes": True,
+            "jenkins": False,
+            "github_actions": False,
+            "readme": True
+        },
 
-    "language": language,
-
-    "tools":{
-
-        "docker":True,
-        "docker_compose":True,
-        "terraform":False,
-        "kubernetes":True,
-        "jenkins":False,
-        "github_actions":False,
-        "readme":True
-
-    },
-
-    "checks":[...],
-
-    "recommendations":[...]
-
-}
+        "checks": [],
+        "recommendations": []
+    }
 
     score = 0
 
