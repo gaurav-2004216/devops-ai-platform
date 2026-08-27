@@ -1,0 +1,2 @@
+[terraform-devops]
+13.206.253.198 ansible_user=ec2-user

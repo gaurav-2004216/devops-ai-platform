@@ -1,0 +1,92 @@
+---
+- name: Configure DevOps Server
+  hosts: devops
+  become: true
+
+  tasks:
+
+    - name: Install required packages
+      ansible.builtin.dnf:
+        name:
+          - git
+          - docker
+          - java-17-amazon-corretto
+        state: present
+
+    - name: Ensure /data mount point exists
+      ansible.builtin.file:
+        path: /data
+        state: directory
+        mode: '0755'
+
+    - name: Ensure 30GB data filesystem is mounted
+      ansible.posix.mount:
+        path: /data
+        src: UUID=9e368680-6f88-4571-a7a8-2e799fc76ef5
+        fstype: ext4
+        opts: defaults
+        state: mounted
+
+    - name: Ensure Docker service is running
+      ansible.builtin.systemd:
+        name: docker
+        state: started
+        enabled: true
+
+    - name: Ensure Jenkins service is running
+      ansible.builtin.systemd:
+        name: jenkins
+        state: started
+        enabled: true
+
+    - name: Ensure K3s service is running
+      ansible.builtin.systemd:
+        name: k3s
+        state: started
+        enabled: true
+
+    - name: Verify Git installation
+      ansible.builtin.command: git --version
+      register: git_version
+      changed_when: false
+
+    - name: Display Git version
+      ansible.builtin.debug:
+        msg: "{{ git_version.stdout }}"
+
+    - name: Verify Docker installation
+      ansible.builtin.command: docker --version
+      register: docker_version
+      changed_when: false
+
+    - name: Display Docker version
+      ansible.builtin.debug:
+        msg: "{{ docker_version.stdout }}"
+
+    - name: Verify Java installation
+      ansible.builtin.command: java -version
+      register: java_version
+      changed_when: false
+      failed_when: false
+
+    - name: Display Java version
+      ansible.builtin.debug:
+        msg: "{{ java_version.stderr }}"
+
+    - name: Verify K3s service
+      ansible.builtin.command: systemctl is-active k3s
+      register: k3s_status
+      changed_when: false
+
+    - name: Display K3s status
+      ansible.builtin.debug:
+        msg: "K3s status: {{ k3s_status.stdout }}"
+
+    - name: Verify /data mount
+      ansible.builtin.command: findmnt /data
+      register: data_mount
+      changed_when: false
+
+    - name: Display /data mount
+      ansible.builtin.debug:
+        msg: "{{ data_mount.stdout }}"
