@@ -4,7 +4,6 @@ kind: Ingress
 metadata:
   name: ai-devsecops-ingress
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
 
 spec:
   ingressClassName: traefik
